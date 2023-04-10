@@ -1,10 +1,17 @@
 import { List } from "../components/list/list"
 import Head from "next/head"
-import { useExperiments } from "../services/experiments"
+import { createExperiment, useExperiments } from "../services/experiments"
 import { ExperimentListItem } from "../components/experiment/experiment-list-item"
+import { useQueryClient } from "@tanstack/react-query"
 
 const Overview = () => {
+  const queryClient = useQueryClient()
   const { data: experiments } = useExperiments()
+
+  const add = async () => {
+    await createExperiment()
+    queryClient.invalidateQueries({queryKey: 'experiments'})
+  }
 
   return (
     <>
@@ -16,7 +23,7 @@ const Overview = () => {
         title="Experiments"
         description="Shows the executed experiments sorted by creation date"
         action={{
-          onClick: console.log,
+          onClick: add,
           label: 'Create'
         }}
       >

@@ -13,7 +13,7 @@ export const ResultListItem = ({ id, name, description, createdAt, scores }) => 
                 </div>
             </div>
             <div className="flex">
-                <div className="text-gray-500 dark:text-gray-400 text-xs flex gap-1">
+                <div className="text-gray-500 text-xs flex gap-1">
                     <ClockIcon className="h-4 w-4" />
                     {getDateString(createdAt)}
                 </div>
@@ -24,7 +24,7 @@ export const ResultListItem = ({ id, name, description, createdAt, scores }) => 
                 <Score type="WER" scores={scores} />
                 {/* <Score type="ROUGE" scores={scores} /> */}
             </div>
-            <Link href={`/results/${id}`} className="dark:bg-gray-800 p-1 rounded-full text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+            <Link href={`/results/${id}`} className="p-1 rounded-full text-gray-400 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                 <ArrowRightIcon className="block h-5 w-5" />
             </Link>
         </>

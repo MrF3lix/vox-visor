@@ -9,9 +9,9 @@ const Overview = () => {
   return (
     <>
       <Head>
-        <title>Viewer | Results</title>
+        <title>Viewer | All Results</title>
       </Head>
-      <h1 className="text-2xl">Results</h1>
+      <h1 className="text-2xl">All Results</h1>
       <List
         title="Results"
         description="The results of the experiments sorted by creation date."

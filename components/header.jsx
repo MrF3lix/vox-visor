@@ -5,14 +5,14 @@ export const Header = () => (
         <header className="flex justify-between items-center w-full max-w-[1200px] mx-auto gap-4">
             <nav>
                 <ul className="flex">
-                    <li className="text-white text-lg p-4">
+                    <li className="text-white p-4">
                         <Link href="/">
                             Overview
                         </Link>
                     </li>
-                    <li className="text-white text-lg p-4">
+                    <li className="text-white p-4">
                         <Link href="/results">
-                            Results
+                            All Results
                         </Link>
                     </li>
                 </ul>

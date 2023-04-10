@@ -6,12 +6,10 @@ import { Input } from "../form/input"
 import { TextArea } from "../form/textarea"
 import { Select } from "../form/select"
 import { saveResult } from "../../services/results"
-
-const experiments = [
-    { value: '0a4f96b6-dbdc-4059-8529-503cad3f4328', name: 'Compare CAI models' }
-]
+import { useExperiments } from "../../services/experiments"
 
 export const ResultDetail = ({ result }) => {
+    const {data: experiments} = useExperiments()
 
     const [isEditing, setIsEditing] = useState(false)
     const [name, setName] = useState("")
@@ -31,7 +29,7 @@ export const ResultDetail = ({ result }) => {
     }
 
     const submitResult = async () => {
-        setExperimentName(experiments.find(e => e.value === experimentId)?.name || "")
+        setExperimentName(experiments.list.find(e => e.id === experimentId)?.name || "")
 
         await saveResult({
             ...result,
@@ -85,7 +83,7 @@ export const ResultDetail = ({ result }) => {
 
                     {isEditing ?
                         <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                            <Select selected={experimentId} options={experiments} onChange={(e) => setExperimentId(e.target.value)} label="Experiment" hideLabel />
+                            <Select selected={experimentId} options={experiments?.list.map(e => ({value: e.id, name: e.name}))} onChange={(e) => setExperimentId(e.target.value)} label="Experiment" hideLabel />
                         </dd>
                         :
                         <>

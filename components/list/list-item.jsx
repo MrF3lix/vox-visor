@@ -1,5 +1,5 @@
-export const ListItem = ({ children }) => (
-    <div className="bg-white first:rounded-t-md last:rounded-b-md dark:bg-gray-800 border-b border-gray-200 dark:border-gray-600 last:border-none flex flex-row justify-between items-center p-6">
+export const ListItem = ({ className, children }) => (
+    <div className={`bg-white first:rounded-t-md last:rounded-b-md border-b border-gray-200 last:border-none flex flex-row justify-between items-center p-6 ${className}`}>
         {children}
     </div>
 )

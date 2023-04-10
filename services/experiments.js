@@ -9,6 +9,41 @@ export const useExperiment = (id) => {
     return useQuery({ queryKey: ['experiments', id], queryFn: () => fetchExperiment(id) })
 }
 
+export const createExperiment = async () => {
+    const {data, error} = await supabase
+        .from('Experiment')
+        .insert({
+            name: 'New Experiment',
+            description: 'New Experiment'
+        })
+
+    if (error) {
+        console.trace()
+        console.error(error)
+        throw error
+    }
+
+    return data
+}
+
+export const saveExperiment = async (result) => {
+    const {data, error} = await supabase
+        .from('Experiment')
+        .update({
+            name: result.name,
+            description: result.description
+        })
+        .match({ id: result.id });
+
+    if (error) {
+        console.trace()
+        console.error(error)
+        throw error
+    }
+
+    return data
+}
+
 const fetchExperiments = async () => {
     const { data, error, count } = await supabase
     .from('Experiment')
