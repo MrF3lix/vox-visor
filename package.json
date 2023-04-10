@@ -19,7 +19,8 @@
     "next": "13.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-final-form": "^6.5.9"
+    "react-final-form": "^6.5.9",
+    "react-use": "^17.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

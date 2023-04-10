@@ -1,4 +1,4 @@
-export const Input = ({ label, value, defaultValue, onChange, className, disabled = false, ...rest }) => (
+export const Input = ({ label, value, defaultValue, onChange, className, error, disabled = false, ...rest }) => (
     <label className={`text-left ${className}`}>
         {label &&
             <span className="text-gray-600 text-xs">{label}</span>
@@ -16,5 +16,8 @@ export const Input = ({ label, value, defaultValue, onChange, className, disable
             defaultValue={defaultValue}
             {...rest}
         />
+        {error && error !== '' && (
+            <span className="text-sm text-red-500">{error}</span>
+        )}
     </label>
 )

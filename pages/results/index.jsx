@@ -2,12 +2,13 @@ import { List } from "../../components/list/list"
 import Head from "next/head"
 import { useResults } from "../../services/results"
 import { ResultListItem } from "../../components/result/result-list-item"
+import { Private } from "../../components/private"
 
-const Overview = () => {
+const Results = () => {
   const { data: results } = useResults()
 
   return (
-    <>
+    <Private>
       <Head>
         <title>Viewer | All Results</title>
       </Head>
@@ -18,8 +19,8 @@ const Overview = () => {
       >
         {results?.list.map(result => <ResultListItem key={result.id} {...result} />)}
       </List>
-    </>
+    </Private>
   )
 }
 
-export default Overview
+export default Results

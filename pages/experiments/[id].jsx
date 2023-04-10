@@ -5,12 +5,13 @@ import { ResultListItem } from "../../components/result/result-list-item"
 import dayjs from "dayjs"
 import { ListItem } from "../../components/list/list-item"
 import { ExperimentDetail } from "../../components/experiment/experiment-detail"
+import { Private } from "../../components/private"
 
 const ExperimentDetails = ({ id }) => {
     const { data: experiment, isLoading } = useExperiment(id)
 
     return (
-        <>
+        <Private>
             <Head>
                 <title>Viewer | Experiment Details</title>
             </Head>
@@ -38,7 +39,7 @@ const ExperimentDetails = ({ id }) => {
                     </ListItem>
                 }
             </List>
-        </>
+        </Private>
     )
 }
 
