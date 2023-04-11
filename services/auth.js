@@ -29,3 +29,16 @@ export const isAuthenticated = async () => {
     }
     return true
 }
+
+export const getUserId = async () => {
+    const { data } = await supabase.auth.getSession();
+
+    if(data && data.session) {
+        return data.session.user.id
+    }
+    const storedSession = getStoredSession()
+
+    if(storedSession && storedSession.user) {
+        return storedSession.user.id
+    }
+}

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { supabase } from "./supabase"
+import { getUserId } from "./auth"
 
 export const useExperiments = () => {
     return useQuery({ queryKey: ['experiments'], queryFn: fetchExperiments })
@@ -10,11 +11,13 @@ export const useExperiment = (id) => {
 }
 
 export const createExperiment = async () => {
+    const userId = await getUserId()
     const {data, error} = await supabase
         .from('Experiment')
         .insert({
             name: 'New Experiment',
-            description: 'New Experiment'
+            description: 'New Experiment',
+            user_id: userId
         })
 
     if (error) {
