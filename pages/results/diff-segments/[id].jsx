@@ -11,7 +11,7 @@ const ResultDiff = ({ id }) => {
     return (
         <Private>
             <Head>
-                <title>Viewer | Compare Output</title>
+                <title>Viewer | Compare Segments</title>
             </Head>
             <h1>
                 <Link href={`/results/${result?.id}`} className="underline text-sky-600 text-sm flex items-center gap-1">
@@ -30,8 +30,8 @@ const ResultDiff = ({ id }) => {
                     </div>
                     <DiffEditor
                         className="py-4 h-[80vh]"
-                        original={result?.reference}
-                        modified={result?.hypothesis}
+                        original={JSON.stringify(result?.referenceSegments.map(s => ({index: s.index, text: s.text})), null, 4)}
+                        modified={JSON.stringify(result?.hypothesisSegments.map(s => ({index: s.index, text: s.text})), null, 4)}
                     />
                 </div>
             </div>

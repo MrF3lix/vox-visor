@@ -9,11 +9,6 @@ import { Private } from "../../components/private";
 const ResultDetails = ({ id }) => {
     const { data: result } = useResult(id)
 
-    const formatOnMount = (editor) => {
-        setTimeout(() => { editor.trigger("editor", "editor.action.formatDocument") }, 500)
-
-    };
-
     return (
         <Private>
             <Head>
@@ -63,6 +58,34 @@ const ResultDetails = ({ id }) => {
                         modified={result?.hypothesis}
                     />
                 </div>
+                {result?.referenceSegments && result?.hypothesisSegments &&
+                    <div className="flex flex-col gap-4 bg-white p-4 rounded-md">
+                        <div>
+                            <h2 className="text-xl">
+                                Segment Comparison
+                            </h2>
+                            <p className="mt-1 text-sm text-gray-500">
+                                Shows the differences between each segment. This is only available if the ground truth for each segment exists.
+                            </p>
+                            <Link href={`/results/diff-segments/${result?.id}`} className="underline text-sky-600 text-sm">
+                                View larger
+                            </Link>
+                        </div>
+                        <div className="flex">
+                            <div className="w-full">
+                                <h3 className="text-lg">Reference</h3>
+                            </div>
+                            <div className="w-full">
+                                <h3 className="text-lg">Hypothesis</h3>
+                            </div>
+                        </div>
+                        <DiffEditor
+                            className="py-4 h-[20vh]"
+                            original={JSON.stringify(result?.referenceSegments.map(s => ({ index: s.index, text: s.text })), null, 4)}
+                            modified={JSON.stringify(result?.hypothesisSegments.map(s => ({ index: s.index, text: s.text })), null, 4)}
+                        />
+                    </div>
+                }
                 <div className="flex flex-col gap-4 bg-white p-4 rounded-md">
                     <div>
                         <h2 className="text-xl">
@@ -76,8 +99,7 @@ const ResultDetails = ({ id }) => {
                         <Editor
                             className="py-4 h-[70vh]"
                             language="json"
-                            onMount={formatOnMount}
-                            value={JSON.stringify(result?.config)}
+                            value={JSON.stringify(result?.config, null, 4)}
                         />
                     }
                 </div>

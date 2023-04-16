@@ -46,7 +46,7 @@ const fetchResults = async () => {
 const fetchResult = async (id) => {
     const { data, error } = await supabase
         .from('Run')
-        .select('id, name: input_file, description, hypothesis, config: config_file, reference, createdAt: created_at, scores: Score(id, type, value), experiment: Experiment(id, name)')
+        .select('id, name: input_file, description, hypothesis, config: config_file, reference, hypothesisSegments: hypothesis_segments, referenceSegments: reference_segments, createdAt: created_at, scores: Score(id, type, value), experiment: Experiment(id, name)')
         .eq('id', id)
         .order('created_at', { ascending: false })
         .maybeSingle()
