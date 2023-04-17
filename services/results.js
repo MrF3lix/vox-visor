@@ -31,7 +31,7 @@ export const saveResult = async (result) => {
 const fetchResults = async () => {
     const { data, error, count } = await supabase
         .from('Run')
-        .select('id, name: input_file, description, createdAt: created_at, scores: Score(id, type, value)')
+        .select('id, name: input_file, description, createdAt: created_at, scores: Score(id, type, value), experiment: Experiment(id, name)')
         .order('created_at', { ascending: false })
 
     if (error) {
