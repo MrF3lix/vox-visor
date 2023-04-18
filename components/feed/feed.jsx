@@ -10,7 +10,7 @@ const getTimeLine = config => {
     const preprocessor = "Default"
     const segmenter = config['pipeline_config']['segmenter_class_id']
     const cutter = "Default"
-    const model = config['pipeline_config']['model_class_id']
+    const model = config['pipeline_config']['transcriber_class_id']
     const merger = config['pipeline_config']['merger_class_id']
     const scorer = "Default"
     const reporter = "Supabase"

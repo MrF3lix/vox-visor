@@ -7,7 +7,7 @@ export const ResultListItem = ({ id, name, description, createdAt, scores, exper
     <ListItem className="gap-6">
         <>
             <div className="flex flex-col sm:flex-row gap-2">
-                <div className="sm:w-48 w-46">
+                <div className="w-64">
                     <div className="font-semibold truncate">{name}</div>
                     <div className="truncate text-gray-500 text-xs">{description}</div>
                 </div>
@@ -29,7 +29,7 @@ export const ResultListItem = ({ id, name, description, createdAt, scores, exper
                 <Score type="BLEU" scores={scores} />
                 {/* <Score type="BLEU Preprocessed" scores={scores} /> */}
                 <Score type="WER" scores={scores} />
-                <Score type="SegDistBase" name="SegDist" scores={scores} digits={2} />
+                <Score type="SemDist" name="SemDist" scores={scores} digits={2} />
             </div>
             <Link href={`/results/${id}`} className="p-1 rounded-full text-gray-400 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                 <ArrowRightIcon className="block h-5 w-5" />
