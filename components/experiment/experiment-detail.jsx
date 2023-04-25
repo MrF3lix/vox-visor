@@ -6,30 +6,6 @@ import { TextArea } from "../form/textarea"
 import { saveExperiment } from "../../services/experiments"
 
 export const ExperimentDetail = ({ experiment }) => {
-
-    const getAverageScore = (experiment, scoreType) => {
-        if(!experiment) return 0
-
-        var scores = experiment.results.map(e => e.scores.find(s => s.type === scoreType)?.value)
-
-        const sum = scores.reduce((a, b) => a + b, 0);
-        const avg = (sum / scores.length) || 0;
-
-        return avg.toFixed(2)
-    } 
-
-    const avgBleu = useMemo(() => {
-        return getAverageScore(experiment, 'BLEU')
-    }, [experiment])
-
-    const avgSemDist = useMemo(() => {
-        return getAverageScore(experiment, 'SemDist')
-    }, [experiment])
-
-    const avgWer = useMemo(() => {
-        return getAverageScore(experiment, 'WER')
-    }, [experiment])
-
     const [isEditing, setIsEditing] = useState(false)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -89,19 +65,19 @@ export const ExperimentDetail = ({ experiment }) => {
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Runs</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{experiment.results.length}</dd>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{experiment.stats.count}</dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Average BLEU</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{avgBleu}</dd>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{experiment.stats.avg_bleu.toFixed(2)}</dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Average WER</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{avgWer}</dd>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{experiment.stats.avg_wer.toFixed(2)}</dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Average SemDist</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{avgSemDist}</dd>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{experiment.stats.avg_semdist.toFixed(2)}</dd>
                 </div>
             </dl>
 

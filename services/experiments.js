@@ -65,7 +65,7 @@ const fetchExperiments = async () => {
 const fetchExperiment = async (id) => {
     const { data, error } = await supabase
     .from('Experiment')
-    .select('id, name, description, createdAt: created_at, results: Run(id, name: input_file, description, createdAt: created_at, scores: Score(id, type, value))')
+    .select('id, name, description, createdAt: created_at')
     .eq('id', id)
     .order('created_at', { ascending: false })
     .maybeSingle()
@@ -76,5 +76,22 @@ const fetchExperiment = async (id) => {
         throw error
     }
 
+    const runs = await fetchExperimentResults(id)
+    const stats = await fetchExperimentStats(id)
+
+    return {
+        ...data,
+        stats,
+        runs
+    }
+}
+
+const fetchExperimentStats = async (id) => {
+    const {data} = await supabase.rpc('get_experiment_stats', { experiment_id: id })
+    return data[0]
+}
+
+const fetchExperimentResults = async (id,page=0) => {
+    const { data, error } = await supabase.rpc('get_runs', { experiment_id: id, offset_n: page*1000 })
     return data
 }

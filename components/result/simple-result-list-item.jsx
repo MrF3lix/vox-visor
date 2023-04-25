@@ -3,7 +3,7 @@ import { ArrowRightIcon, ClockIcon, RocketLaunchIcon } from '@heroicons/react/24
 import { ListItem } from "../list/list-item";
 import dayjs from "dayjs";
 
-export const ResultListItem = ({ id, name, description, createdAt, scores, experiment }) => (
+export const SimpleResultListItem = ({ id, name, description, created_at, BLEU, WER, SemDist}) => (
     <ListItem className="gap-6">
         <>
             <div className="flex flex-col sm:flex-row gap-2">
@@ -15,21 +15,13 @@ export const ResultListItem = ({ id, name, description, createdAt, scores, exper
             <div className="flex w-24">
                 <div className="text-gray-500 text-xs flex gap-1">
                     <ClockIcon className="h-4 w-4" />
-                    {getDateString(createdAt)}
+                    {getDateString(created_at)}
                 </div>
             </div>
-            <div className="flex flex-1 gap-2">
-                {experiment?.id &&
-                    <Link href={`/experiments/${experiment.id}`}>
-                        <RocketLaunchIcon className="w-5 h-5" />
-                    </Link>
-                }
-            </div>
             <div className="flex gap-2">
-                <Score type="BLEU" scores={scores} />
-                {/* <Score type="BLEU Preprocessed" scores={scores} /> */}
-                <Score type="WER" scores={scores} />
-                <Score type="SemDist" name="SemDist" scores={scores} digits={3} />
+                <Score type="BLEU" val={BLEU} />
+                <Score type="WER" val={WER} />
+                <Score type="SemDist" val={SemDist} digits={3} />
             </div>
             <Link href={`/results/${id}`} className="p-1 rounded-full text-gray-400 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                 <ArrowRightIcon className="block h-5 w-5" />
@@ -38,14 +30,9 @@ export const ResultListItem = ({ id, name, description, createdAt, scores, exper
     </ListItem>
 )
 
-const Score = ({ type, scores, name, digits = 1 }) => {
-    const scoreItem = scores.find(s => s.type === type)
+const Score = ({ type, val, name, digits = 1 }) => {
 
-    if (!scoreItem) {
-        return <></>
-    }
-
-    const value = new Intl.NumberFormat("de-CH", { maximumFractionDigits: digits }).format(scoreItem.value)
+    const value = new Intl.NumberFormat("de-CH", { maximumFractionDigits: digits }).format(val)
 
     return (
         <div className="flex items-center bg-gray-100 rounded-full px-2">
