@@ -5,17 +5,13 @@ export const useRun = (id) => {
     return useQuery({ queryKey: ['run', id], queryFn: () => fetchRun(id) })
 }
 
-export const useTranscripts = (runId) => {
-    return useQuery({ queryKey: ['transcripts', runId], queryFn: () => fetchTranscripts(runId) })
-}
-
 const fetchRun = async (id) => {
     const { data, error } = await supabase
-    .from('run')
-    .select('id, name, description, createdAt: created_at, config')
-    .eq('id', id)
-    .order('created_at', { ascending: false })
-    .maybeSingle()
+        .from('run')
+        .select('id, name, description, createdAt: created_at, config')
+        .eq('id', id)
+        .order('created_at', { ascending: false })
+        .maybeSingle()
 
     if (error) {
         console.trace()
@@ -24,20 +20,25 @@ const fetchRun = async (id) => {
     }
 
     const stats = await fetchStats(id)
-    
+
     return {
         ...data,
         stats
     }
 }
 
-const fetchTranscripts = async (runId) => {
-    const {data} = await supabase.rpc('get_transcripts', {run_id: runId, offset_n: 0})
-    return data
+export const fetchTranscripts = async (runId, pageParam) => {
+    const { data } = await supabase.rpc('get_transcripts', { run_id: runId, offset_n: pageParam })
+    // await new Promise(r => setTimeout(r, 3000));
+    return {
+        data,
+        previousId: pageParam == 0 ? undefined : pageParam - 1,
+        nextId: pageParam + 1
+    }
 }
 
 export const saveRun = async (run) => {
-    const {data, error} = await supabase
+    const { data, error } = await supabase
         .from('run')
         .update({
             name: run.name,
@@ -55,6 +56,6 @@ export const saveRun = async (run) => {
 }
 
 const fetchStats = async (id) => {
-    const {data} = await supabase.rpc('get_run_stats', {run_id: id})
+    const { data } = await supabase.rpc('get_run_stats', { run_id: id })
     return data[0]
 }
