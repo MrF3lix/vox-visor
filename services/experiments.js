@@ -10,10 +10,14 @@ export const useExperiment = (id) => {
     return useQuery({ queryKey: ['experiments', id], queryFn: () => fetchExperiment(id) })
 }
 
+export const useExperimentResults = (id) => {
+    return useQuery({ queryKey: ['experiments', 'results', id], queryFn: () => fetchExperimentResults(id) })
+}
+
 export const createExperiment = async () => {
     const userId = await getUserId()
     const {data, error} = await supabase
-        .from('Experiment')
+        .from('experiment')
         .insert({
             name: 'New Experiment',
             description: 'New Experiment',
@@ -31,7 +35,7 @@ export const createExperiment = async () => {
 
 export const saveExperiment = async (result) => {
     const {data, error} = await supabase
-        .from('Experiment')
+        .from('experiment')
         .update({
             name: result.name,
             description: result.description
@@ -49,7 +53,7 @@ export const saveExperiment = async (result) => {
 
 const fetchExperiments = async () => {
     const { data, error, count } = await supabase
-    .from('Experiment')
+    .from('experiment')
     .select('id, name, description, createdAt: created_at')
     .order('created_at', { ascending: false })
 
@@ -64,8 +68,8 @@ const fetchExperiments = async () => {
 
 const fetchExperiment = async (id) => {
     const { data, error } = await supabase
-    .from('Experiment')
-    .select('id, name, description, createdAt: created_at')
+    .from('experiment')
+    .select('id, name, description, createdAt: created_at, runs: run(id, createdAt: created_at, name, description)')
     .eq('id', id)
     .order('created_at', { ascending: false })
     .maybeSingle()
@@ -75,14 +79,13 @@ const fetchExperiment = async (id) => {
         console.error(error)
         throw error
     }
+    
+    console.log(data)
 
-    const runs = await fetchExperimentResults(id)
-    const stats = await fetchExperimentStats(id)
+    // const runs = await fetchExperimentResults(id)
 
     return {
-        ...data,
-        stats,
-        runs
+        ...data
     }
 }
 

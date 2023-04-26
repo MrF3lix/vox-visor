@@ -3,25 +3,25 @@ import dayjs from "dayjs"
 import { useEffect, useState } from "react"
 import { Input } from "../form/input"
 import { TextArea } from "../form/textarea"
-import { saveExperiment } from "../../services/experiments"
+import { saveRun } from "../../services/runs"
 
-export const ExperimentDetail = ({ experiment }) => {
+export const RunDetail = ({ run }) => {
     const [isEditing, setIsEditing] = useState(false)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
 
     useEffect(() => {
-        setName(experiment?.name)
-        setDescription(experiment?.description)
-    }, [experiment])
+        setName(run?.name)
+        setDescription(run?.description)
+    }, [run])
 
-    if (!experiment) {
+    if (!run) {
         return <></>
     }
 
-    const submitExperiment = async () => {
-        await saveExperiment({
-            ...experiment,
+    const submitRun = async () => {
+        await saveRun({
+            ...run,
             name,
             description
         })
@@ -30,8 +30,8 @@ export const ExperimentDetail = ({ experiment }) => {
     }
 
     const cancel = () => {
-        setName(experiment?.name)
-        setDescription(experiment?.description)
+        setName(run?.name)
+        setDescription(run?.description)
         setIsEditing(false)
     }
 
@@ -61,24 +61,24 @@ export const ExperimentDetail = ({ experiment }) => {
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Created</dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{dayjs(experiment?.createdAt).format('DD.MM.YY - HH:mm')}</dd>
+                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{dayjs(run?.createdAt).format('DD.MM.YY - HH:mm')}</dd>
                 </div>
-                {/* <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+                <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Runs</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{experiment.stats.count}</dd>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{run.stats.count}</dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Average BLEU</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{experiment.stats.avg_bleu?.toFixed(2)}</dd>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{run.stats.avg_bleu?.toFixed(2)}</dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Average WER</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{experiment.stats.avg_wer?.toFixed(2)}</dd>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{run.stats.avg_wer?.toFixed(2)}</dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Average SemDist</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{experiment.stats.avg_semdist?.toFixed(2)}</dd>
-                </div> */}
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{run.stats.avg_semdist?.toFixed(2)}</dd>
+                </div>
             </dl>
 
             <div className="flex justify-start gap-2">
@@ -87,7 +87,7 @@ export const ExperimentDetail = ({ experiment }) => {
                 }
                 {isEditing &&
                     <>
-                        <Button primary onClick={submitExperiment}>Save</Button>
+                        <Button primary onClick={submitRun}>Save</Button>
                         <Button secondary onClick={cancel}>Cancel</Button>
                     </>
                 }

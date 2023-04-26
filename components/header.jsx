@@ -12,28 +12,13 @@ export const Header = ({ isAuthenticated }) => {
     }
 
     return (
-        <header className="bg-teal-700">
-            <header className="flex justify-between items-center w-full max-w-[1200px] mx-auto gap-4">
-                <nav>
-                    {isAuthenticated &&
-                        <ul className="flex">
-                            <li className="text-white p-4">
-                                <Link href="/">
-                                    All Experiments
-                                </Link>
-                            </li>
-                            <li className="text-white p-4">
-                                <Link href="/results">
-                                    All Results
-                                </Link>
-                            </li>
-                        </ul>
-                    }
-                </nav>
+        <header className="bg-amber-400">
+            <header className="flex justify-between items-center w-full max-w-[1200px] mx-auto gap-4 p-4">
+                <Link href="/">
+                    <h1 className="font-light text-black text-2xl">Vox Visor</h1>
+                </Link>
                 {isAuthenticated &&
-                    <div className="mr-4">
-                        <Button primary small onClick={logout}>Logout</Button>
-                    </div>
+                    <Button primary small onClick={logout}>Logout</Button>
                 }
             </header>
         </header>

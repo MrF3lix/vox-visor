@@ -3,9 +3,9 @@ import Head from "next/head"
 import { List } from "../../components/list/list"
 import dayjs from "dayjs"
 import { ListItem } from "../../components/list/list-item"
-import { ExperimentDetail } from "../../components/experiment/experiment-detail"
 import { Private } from "../../components/private"
-import { SimpleResultListItem } from "../../components/result/simple-result-list-item"
+import { RunListItem } from "../../components/run/run-list-item"
+import { ExperimentDetail } from "../../components/experiment/experiment-detail"
 
 const ExperimentDetails = ({ id }) => {
     const { data: experiment, isLoading } = useExperiment(id)
@@ -22,12 +22,8 @@ const ExperimentDetails = ({ id }) => {
             <List
                 title="Runs"
                 description="List of the pipeline executions belonging to this experiment"
-                action={{
-                    onClick: console.log,
-                    label: 'Add Run'
-                }}
             >
-                {!isLoading && experiment?.runs?.sort((a, b) => dayjs(a.created_at).isAfter(dayjs(b.created_at)) ? -1 : 1).map(result => <SimpleResultListItem key={result.id} {...result} />)}
+                {!isLoading && experiment?.runs?.sort((a, b) => dayjs(a.created_at).isAfter(dayjs(b.created_at)) ? -1 : 1).map(result => <RunListItem key={result.id} {...result} />)}
                 {!isLoading && experiment?.runs?.length === 0 &&
                     <ListItem>
                         <div className="text-gray-500 text-xs">No results within this experiment found.</div>
