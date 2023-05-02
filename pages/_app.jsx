@@ -6,7 +6,13 @@ import { isAuthenticated, storeSession } from '../services/auth'
 import { Header } from '../components/header'
 import { useState } from 'react'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+    },
+  },
+})
 
 const App = ({ Component, pageProps }) => {
   const [authenticated, setAuthenticated] = useState(false)
