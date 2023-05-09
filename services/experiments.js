@@ -55,7 +55,7 @@ const fetchExperiments = async () => {
     const { data, error, count } = await supabase
     .from('experiment')
     .select('id, name, description, createdAt: created_at')
-    .order('created_at', { ascending: false })
+    .order('name')
 
     if (error) {
         console.trace()
