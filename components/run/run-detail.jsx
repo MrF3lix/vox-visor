@@ -5,7 +5,7 @@ import { Input } from "../form/input"
 import { TextArea } from "../form/textarea"
 import { saveRun } from "../../services/runs"
 
-export const RunDetail = ({ run }) => {
+export const RunDetail = ({ run, stats }) => {
     const [isEditing, setIsEditing] = useState(false)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -65,19 +65,19 @@ export const RunDetail = ({ run }) => {
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Runs</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{run.stats.count}</dd>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{stats?.count}</dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Average BLEU</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{run.stats.avg_bleu?.toFixed(2)}</dd>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{stats?.avg_bleu?.toFixed(2)}</dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Average WER</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{run.stats.avg_wer?.toFixed(2)}</dd>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{stats?.avg_wer?.toFixed(2)}</dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Average SemDist</dt>
-                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{run.stats.avg_semdist?.toFixed(2)}</dd>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{stats?.avg_semdist?.toFixed(2)}</dd>
                 </div>
             </dl>
 

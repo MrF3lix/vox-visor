@@ -79,14 +79,8 @@ const fetchExperiment = async (id) => {
         console.error(error)
         throw error
     }
-    
-    console.log(data)
 
-    // const runs = await fetchExperimentResults(id)
-
-    return {
-        ...data
-    }
+    return data
 }
 
 const fetchExperimentStats = async (id) => {

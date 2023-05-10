@@ -5,6 +5,10 @@ export const useRun = (id) => {
     return useQuery({ queryKey: ['run', id], queryFn: () => fetchRun(id) })
 }
 
+export const useRunStats = (id) => {
+    return useQuery({queryKey: ['run', 'stats', id], queryFn: () => fetchStats(id)})
+}
+
 const fetchRun = async (id) => {
     const { data, error } = await supabase
         .from('run')
@@ -19,17 +23,11 @@ const fetchRun = async (id) => {
         throw error
     }
 
-    const stats = await fetchStats(id)
-
-    return {
-        ...data,
-        stats
-    }
+    return data
 }
 
 export const fetchTranscripts = async (runId, pageParam) => {
     const { data } = await supabase.rpc('get_transcripts', { run_id: runId, offset_n: pageParam })
-    // await new Promise(r => setTimeout(r, 3000));
     return {
         data,
         previousId: pageParam == 0 ? undefined : pageParam - 1,
