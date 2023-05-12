@@ -1,7 +1,6 @@
 import { useExperiment } from "../../services/experiments"
 import Head from "next/head"
 import { List } from "../../components/list/list"
-import dayjs from "dayjs"
 import { ListItem } from "../../components/list/list-item"
 import { Private } from "../../components/private"
 import { RunListItem } from "../../components/run/run-list-item"
@@ -23,7 +22,7 @@ const ExperimentDetails = ({ id }) => {
                 title="Runs"
                 description="List of the pipeline executions belonging to this experiment"
             >
-                {!isLoading && experiment?.runs?.sort((a, b) => dayjs(a.created_at).isAfter(dayjs(b.created_at)) ? -1 : 1).map(result => <RunListItem key={result.id} {...result} />)}
+                {!isLoading && experiment?.runs?.map(result => <RunListItem key={result.id} {...result} />)}
                 {!isLoading && experiment?.runs?.length === 0 &&
                     <ListItem>
                         <div className="text-gray-500 text-xs">No results within this experiment found.</div>

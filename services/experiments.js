@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { supabase } from "./supabase"
 import { getUserId } from "./auth"
+import dayjs from "dayjs"
 
 export const useExperiments = () => {
     return useQuery({ queryKey: ['experiments'], queryFn: fetchExperiments })
@@ -80,7 +81,10 @@ const fetchExperiment = async (id) => {
         throw error
     }
 
-    return data
+    return {
+        ...data,
+        runs: data.runs.sort((a, b) => dayjs(a.createdAt).isAfter(dayjs(b.createdAt)) ? -1 : 1)
+    }
 }
 
 const fetchExperimentStats = async (id) => {
