@@ -6,7 +6,11 @@ export const useRun = (id) => {
 }
 
 export const useRunStats = (id) => {
-    return useQuery({queryKey: ['run', 'stats', id], queryFn: () => fetchStats(id)})
+    return useQuery({ queryKey: ['run', 'stats', id], queryFn: () => fetchStats(id) })
+}
+
+export const useRunPlots = (id) => {
+    return useQuery({ queryKey: ['run', 'plots', id], queryFn: () => fetchPlots(id) })
 }
 
 const fetchRun = async (id) => {
@@ -56,4 +60,22 @@ export const saveRun = async (run) => {
 const fetchStats = async (id) => {
     const { data } = await supabase.rpc('get_run_stats', { run_id: id })
     return data[0]
+}
+
+const fetchPlots = async (id) => {
+    const { data, error } = await supabase
+        .storage
+        .from('assets')
+        .list(id)
+
+    if (error) {
+        console.trace()
+        console.error(error)
+        throw error
+    }
+
+    return data.map(item => ({
+        ...item,
+        url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/assets/${id}/${item.name}`
+    }))
 }
