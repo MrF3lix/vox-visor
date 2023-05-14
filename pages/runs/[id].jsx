@@ -48,9 +48,9 @@ const Run = ({ id }) => {
                     <div className="overflow-x-scroll">
                         <div className="flex gap-4">
                             {plots?.map(plot => (
-                                <div key={plot.id} className=" shrink-0">
+                                <div key={plot.id} className="shrink-0 w-96 truncate">
                                     <Image src={plot.url} alt={plot.name} width={400} height={400} fill={false} priority={false} />
-                                    <a className="mt-1 text-sm text-gray-500 text-center underline" href={plot.url} target="_blank" rel="noopener noreferrer">{plot.name}</a>
+                                    <a className="mt-1 text-sm text-gray-500 text-center underline w-full" href={plot.url} target="_blank" rel="noopener noreferrer">{plot.name}</a>
                                 </div>
                             ))}
                         </div>
