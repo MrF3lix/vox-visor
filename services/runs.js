@@ -79,3 +79,32 @@ const fetchPlots = async (id) => {
         url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/assets/${id}/${item.name}`
     }))
 }
+
+export const downloadPlot = async (plot) => {
+    const path = plot.url.split('/assets/')[1]
+
+    const { data, error } = await supabase
+        .storage
+        .from('assets')
+        .download(path)
+
+        if (error) {
+            console.trace()
+            console.error(error)
+            throw error
+        }
+
+    saveBlob(data, plot.name)
+}
+
+const saveBlob = (blob, fileName) => {
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
+
+    var url = window.URL.createObjectURL(blob);
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    window.URL.revokeObjectURL(url);
+};
