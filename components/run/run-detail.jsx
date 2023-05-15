@@ -4,16 +4,25 @@ import { useEffect, useState } from "react"
 import { Input } from "../form/input"
 import { TextArea } from "../form/textarea"
 import { saveRun } from "../../services/runs"
+import { Toggle } from "../form/toggle"
 
 export const RunDetail = ({ run, stats }) => {
     const [isEditing, setIsEditing] = useState(false)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
+    const [archived, setArchived] = useState(false)
 
     useEffect(() => {
         setName(run?.name)
         setDescription(run?.description)
+        setArchived(run?.archived)
     }, [run])
+
+    useEffect(() => {
+        if(run && run.archived !== archived) {
+            submitRun()
+        }
+    }, [run, archived])
 
     if (!run) {
         return <></>
@@ -23,7 +32,8 @@ export const RunDetail = ({ run, stats }) => {
         await saveRun({
             ...run,
             name,
-            description
+            description,
+            archived
         })
 
         setIsEditing(false)
@@ -62,6 +72,12 @@ export const RunDetail = ({ run, stats }) => {
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Created</dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{dayjs(run?.createdAt).format('DD.MM.YY - HH:mm')}</dd>
+                </div>
+                <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+                    <dt className="text-sm font-medium text-gray-500">Archived</dt>
+                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                        <Toggle label="Is Archived?" enabled={archived} setEnabled={setArchived} />
+                    </dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Runs</dt>

@@ -9,7 +9,7 @@ import { useState } from 'react'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: true
     },
   },
 })

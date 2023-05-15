@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.16",
     "@monaco-editor/react": "^4.5.0",
     "@supabase/supabase-js": "^2.15.0",

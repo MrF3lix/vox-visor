@@ -3,7 +3,7 @@ import { ArrowRightIcon, ClockIcon } from '@heroicons/react/24/outline'
 import { ListItem } from "../list/list-item";
 import dayjs from "dayjs";
 
-export const RunListItem = ({ id, name, description, createdAt }) => (
+export const RunListItem = ({ id, name, description, archived, createdAt }) => (
     <ListItem className="p-0 px-0 py-0">
         <Link href={`/runs/${id}`} className="flex justify-between items-center w-full p-6">
             <div className="flex flex-col sm:flex-row gap-2">
@@ -11,6 +11,13 @@ export const RunListItem = ({ id, name, description, createdAt }) => (
                     <div className="font-semibold truncate">{name}</div>
                     <div className="truncate text-gray-500 text-xs">{description}</div>
                 </div>
+            </div>
+            <div className="w-12">
+                {archived &&
+                    <span className="inline-flex items-center rounded-full bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
+                        Archived
+                    </span>
+                }
             </div>
             <div className="flex w-24">
                 <div className="text-gray-500 text-xs flex gap-1">

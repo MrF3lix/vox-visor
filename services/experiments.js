@@ -70,7 +70,7 @@ const fetchExperiments = async () => {
 const fetchExperiment = async (id) => {
     const { data, error } = await supabase
     .from('experiment')
-    .select('id, name, description, createdAt: created_at, runs: run(id, createdAt: created_at, name, description)')
+    .select('id, name, description, createdAt: created_at, runs: run(id, createdAt: created_at, name, description, archived)')
     .eq('id', id)
     .order('created_at', { ascending: false })
     .maybeSingle()

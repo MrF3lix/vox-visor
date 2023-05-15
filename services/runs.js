@@ -16,7 +16,7 @@ export const useRunPlots = (id) => {
 const fetchRun = async (id) => {
     const { data, error } = await supabase
         .from('run')
-        .select('id, name, description, createdAt: created_at, config')
+        .select('id, name, description, createdAt: created_at, config, archived')
         .eq('id', id)
         .order('created_at', { ascending: false })
         .maybeSingle()
@@ -44,7 +44,8 @@ export const saveRun = async (run) => {
         .from('run')
         .update({
             name: run.name,
-            description: run.description
+            description: run.description,
+            archived: run.archived
         })
         .match({ id: run.id });
 
