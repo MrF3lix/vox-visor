@@ -50,10 +50,13 @@ const Run = ({ id }) => {
             <div className="w-full overflow-y-auto flex gap-4">
                 {plots?.map(plot => (
                     <div key={plot.id} className="shrink-0 w-1/3 truncate bg-white rounded-md">
-                        <div className="divide-y divide-gray-200">
-                            <div className="p-4">
+                        <div className="divide-y divide-gray-200 flex flex-col justify-between h-full">
+                            <div className="p-4 flex-1 flex flex-col">
                                 <p className="text-lg mb-2">Plot {getTitle(plot.name)}</p>
-                                <Image src={plot.url} alt={plot.name} width={1000} height={1000} fill={false} priority={false} />
+                                <div className="flex-1 flex flex-col justify-center"> 
+                                    <Image src={plot.url} alt={plot.name} width={1000} height={1000} fill={false} priority={false} />
+                                </div>
+                                    
                             </div>
                             <div className="-mt-px flex divide-x divide-gray-200">
                                 <div className="flex w-0 flex-1">
