@@ -88,6 +88,10 @@ export const RunDetail = ({ run, stats }) => {
                     <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{stats?.avg_bleu?.toFixed(2)}</dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+                    <dt className="text-sm font-medium text-gray-500">Average ROUGE</dt>
+                    <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{stats?.avg_rouge?.toFixed(2)}</dd>
+                </div>
+                <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Average WER</dt>
                     <dd className="mt-1 text-sm font-bold text-gray-900 sm:col-span-2 sm:mt-0">{stats?.avg_wer?.toFixed(2)}</dd>
                 </div>
