@@ -4,8 +4,9 @@ import { useEffect, useState } from "react"
 import { Input } from "../form/input"
 import { TextArea } from "../form/textarea"
 import { saveExperiment } from "../../services/experiments"
+import { Toggle } from "../form/toggle"
 
-export const ExperimentDetail = ({ experiment }) => {
+export const ExperimentDetail = ({ experiment, showArchived, setShowArchived }) => {
     const [isEditing, setIsEditing] = useState(false)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -62,6 +63,12 @@ export const ExperimentDetail = ({ experiment }) => {
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Created</dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{dayjs(experiment?.createdAt).format('DD.MM.YY - HH:mm')}</dd>
+                </div>
+                <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+                    <dt className="text-sm font-medium text-gray-500">Show Archived</dt>
+                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                        <Toggle label="Show Archived?" enabled={showArchived} setEnabled={setShowArchived} />
+                    </dd>
                 </div>
                 {/* <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">Runs</dt>
